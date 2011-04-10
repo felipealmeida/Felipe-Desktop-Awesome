@@ -5,7 +5,7 @@ module(..., package.seeall)
 
 print ("creating tags")
 
-tags_names = { "web", "dev", "im", 4, 5, 6, 7, 8, 9 }
+tags_names = { "web", "dev", "im", "sound", 5, 6, 7, 8, 9 }
 all_tags = awful.tag(tags_names, nil, nil)
 
 tags = {}
