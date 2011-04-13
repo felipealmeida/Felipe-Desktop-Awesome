@@ -9,6 +9,7 @@ require("tags")
 require("emacs")
 require("firefox")
 require("im")
+require("title")
 
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.border_normal = 'red'
@@ -29,7 +30,14 @@ end
 keys = {}
 keys = awful.util.table.join(keys
                              , awful.key({ modkey }, "w", function () view_tag(tags.tags['web']) end)
-                             , awful.key({ modkey }, "d", function () view_tag(tags.tags['dev']) end)
+                             , awful.key({ modkey }, "d"
+                                         , function () 
+                                              view_tag(tags.tags['dev']) 
+                                              if not emacs.emacs_frames[1] == nil then
+                                                 emacs.emacs_frames[1]:raise()
+                                                 client.focus = emacs.emacs_frames[1]
+                                              end
+                                           end)
                              , awful.key({ modkey }, "i", function () view_tag(tags.tags['im']) end)
                              , awful.key({ modkey }, "s", function () view_tag(tags.tags['sound']) end)
                              , awful.key({ modkey }, "1", function () view_tag(tags.tags[1]) end)
@@ -116,10 +124,16 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 wibox = awful.wibox({ position = 'top', screen = 1, height = 30 })
 
 wibox.widgets = { 
+   {
+      title.title_textbox,
+      layout = awful.widget.layout.horizontal.leftright,
+   },
    awful.widget.textclock({ align = "right" }),
    widget({ type = 'systray' }),
    layout = awful.widget.layout.horizontal.rightleft,
 }
+
+
 
 awful.util.spawn_with_shell('gnome-settings-daemon')
 awful.util.spawn_with_shell('dex -a')
