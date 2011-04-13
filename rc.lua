@@ -1,14 +1,20 @@
 
+clientkeys = {}
+keys = {}
+
 -- Standard awesome library
 require("awful")
 require("awful.autofocus")
 
 require("beautiful")
 
+require('debugterminal')
+
 require("tags")
 require("emacs")
 require("firefox")
 require("im")
+require("sound")
 require("title")
 
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
@@ -27,7 +33,6 @@ function view_tag (tag)
    awful.tag.viewonly(tag)
 end
 
-keys = {}
 keys = awful.util.table.join(keys
                              , awful.key({ modkey }, "w", function () view_tag(tags.tags['web']) end)
                              , awful.key({ modkey }, "d"
@@ -63,7 +68,6 @@ keys = awful.util.table.join(keys
                                             local current_tags = awful.tag.selectedlist()
                                             local clients = {}
                                             for key, t in pairs(current_tags) do
-                                               print ('current tag ' .. t.name)
                                                local local_clients = t:clients()
                                                for k, c in pairs(local_clients) do
                                                   table.insert(clients, c)
@@ -110,8 +114,11 @@ client.add_signal("manage", function (c, startup)
     c.border_color = beautiful.border_normal
     client.focus = c
 
+    if not c.size_hints.user_position and not c.size_hints.program_position then
+       awful.placement.no_offscreen(c)
+    end
+
     c:add_signal("mouse::enter", function(c)
-        print ('mouse enter ' .. c.class)                                    
         if awful.client.focus.filter(c) then
            client.focus = c
         end
@@ -133,8 +140,6 @@ wibox.widgets = {
    layout = awful.widget.layout.horizontal.rightleft,
 }
 
-
-
 awful.util.spawn_with_shell('gnome-settings-daemon')
 awful.util.spawn_with_shell('dex -a')
 awful.util.spawn_with_shell('emacs')
@@ -143,3 +148,4 @@ awful.util.spawn_with_shell('pidgin')
 awful.util.spawn_with_shell('skype')
 
 pcall(function () require("local") end)
+
