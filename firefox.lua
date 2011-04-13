@@ -2,6 +2,8 @@
 require ("awful")
 require ("tags")
 
+module(..., package.seeall)
+
 firefox_frames = {}
 
 client.add_signal('manage', function (c, startup)
