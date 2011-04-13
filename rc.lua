@@ -142,4 +142,4 @@ awful.util.spawn_with_shell('firefox')
 awful.util.spawn_with_shell('pidgin')
 awful.util.spawn_with_shell('skype')
 
-pcall(require("local"))
+pcall(function () require("local") end)
