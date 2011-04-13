@@ -20,6 +20,16 @@ client.add_signal('manage', function (c, startup)
     end
  end)
 
+client.add_signal('unmanage', function (c)
+    if(c.class == 'Emacs') then
+       print ('Emacs unmanage handling')
+       for key, value in pairs(emacs_frames) do
+          if value.window == c.window then
+             emacs_frames[key] = nil
+          end
+       end
+    end
+end)
 
 function maximize_frames()
    for key, client in ipairs(emacs_frames) do

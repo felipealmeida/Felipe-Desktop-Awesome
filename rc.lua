@@ -20,21 +20,10 @@ beautiful.border_normal = 'red'
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
-awful.tag.viewonly(tags.tags['dev'])
+awful.tag.viewonly(tags.tags['web'])
 
 function view_tag (tag)
    awful.tag.viewonly(tag)
-   -- workarea = screen[1].workarea
-   -- x_p = workarea.x + (workarea.width/2)
-   -- y_p = workarea.y + (workarea.height/2)
-   -- mouse.coords({x = x_p, y = y_p})
-   -- c = mouse.object_under_pointer()
-   -- if c then
-   --    print ("There is something under the pointer " .. c.class)
-   --    client.focus = c
-   -- else
-   --    print ("Nothing udner the pointer?")
-   -- end
 end
 
 keys = {}
@@ -43,6 +32,11 @@ keys = awful.util.table.join(keys
                              , awful.key({ modkey }, "d", function () view_tag(tags.tags['dev']) end)
                              , awful.key({ modkey }, "i", function () view_tag(tags.tags['im']) end)
                              , awful.key({ modkey }, "s", function () view_tag(tags.tags['sound']) end)
+                             , awful.key({ modkey }, "1", function () view_tag(tags.tags[1]) end)
+                             , awful.key({ modkey }, "2", function () view_tag(tags.tags[2]) end)
+                             , awful.key({ modkey }, "3", function () view_tag(tags.tags[3]) end)
+                             , awful.key({ modkey }, "4", function () view_tag(tags.tags[4]) end)
+                             , awful.key({ modkey }, "5", function () view_tag(tags.tags[5]) end)
                              , awful.key({ modkey }, "t",
                                          function()
                                             awful.util.spawn('gnome-terminal') 
@@ -55,6 +49,31 @@ keys = awful.util.table.join(keys
                                                client.focus:raise()
                                             end
                                          end)
+                             , awful.key({ modkey }, "o",
+                                         function ()
+                                            --local clients = awful.client.visible(1)
+                                            local current_tags = awful.tag.selectedlist()
+                                            local clients = {}
+                                            for key, t in pairs(current_tags) do
+                                               print ('current tag ' .. t.name)
+                                               local local_clients = t:clients()
+                                               for k, c in pairs(local_clients) do
+                                                  table.insert(clients, c)
+                                               end
+                                            end
+
+                                            local menus = {}
+                                            for key, c in pairs(clients) do
+                                               table.insert(menus, { c.name
+                                                               , function()
+                                                                    c:raise()
+                                                                    client.focus = c
+                                                                 end})
+                                            end
+
+                                            menu = awful.menu({ items = menus, width = 300 })
+                                            menu:toggle()
+                                         end)
                           )
 root.keys(keys);
 
@@ -63,7 +82,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+--    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "r",      function (c) client.focus = c; c:raise()      end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
@@ -95,7 +114,12 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 wibox = awful.wibox({ position = 'top', screen = 1, height = 30 })
-wibox.widgets = { widget({ type = 'systray' })}
+
+wibox.widgets = { 
+   awful.widget.textclock({ align = "right" }),
+   widget({ type = 'systray' }),
+   layout = awful.widget.layout.horizontal.rightleft,
+}
 
 awful.util.spawn_with_shell('gnome-settings-daemon')
 awful.util.spawn_with_shell('dex -a')

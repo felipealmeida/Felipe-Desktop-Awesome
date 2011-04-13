@@ -13,3 +13,13 @@ client.add_signal('manage', function (c, startup)
        awful.client.movetotag(tags.tags['web'], c)
     end
  end)
+
+client.add_signal('unmanage', function (c)
+    if c.class == 'Firefox' then
+       for key, value in pairs(firefox_frames) do
+          if value.window == c.window then
+             firefox_frames[key] = nil
+          end
+       end
+    end
+ end)
