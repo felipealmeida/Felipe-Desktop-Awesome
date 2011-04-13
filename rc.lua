@@ -141,4 +141,5 @@ awful.util.spawn_with_shell('emacs')
 awful.util.spawn_with_shell('firefox')
 awful.util.spawn_with_shell('pidgin')
 awful.util.spawn_with_shell('skype')
-awful.util.spawn_with_shell('synergyc felipe-desktop')
+
+require("local")
