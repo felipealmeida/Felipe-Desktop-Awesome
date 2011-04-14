@@ -110,7 +110,7 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end)
+        end),
     awful.key({ modkey, "Control" }, "w",      function (c) awful.client.movetotag(tags.tags['web']) end),
     awful.key({ modkey, "Control" }, "d",      function (c) awful.client.movetotag(tags.tags['dev']) end),
     awful.key({ modkey, "Control" }, "i",      function (c) awful.client.movetotag(tags.tags['im']) end),
@@ -120,7 +120,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "2",      function (c) awful.client.movetotag(tags.tags[2]) end),
     awful.key({ modkey, "Control" }, "3",      function (c) awful.client.movetotag(tags.tags[3]) end),
     awful.key({ modkey, "Control" }, "4",      function (c) awful.client.movetotag(tags.tags[4]) end),
-    awful.key({ modkey, "Control" }, "5",      function (c) awful.client.movetotag(tags.tags[5]) end),
+    awful.key({ modkey, "Control" }, "5",      function (c) awful.client.movetotag(tags.tags[5]) end)
 )
 
 clientbuttons = awful.button({ modkey }, 1, awful.mouse.client.move)
