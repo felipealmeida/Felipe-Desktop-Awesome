@@ -15,6 +15,7 @@ require("emacs")
 require("firefox")
 require("im")
 require("sound")
+require("virtualbox")
 require("title")
 
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
@@ -45,6 +46,7 @@ keys = awful.util.table.join(keys
                                            end)
                              , awful.key({ modkey }, "i", function () view_tag(tags.tags['im']) end)
                              , awful.key({ modkey }, "s", function () view_tag(tags.tags['sound']) end)
+                             , awful.key({ modkey }, "v", function () view_tag(tags.tags['virtualbox']) end)
                              , awful.key({ modkey }, "1", function () view_tag(tags.tags[1]) end)
                              , awful.key({ modkey }, "2", function () view_tag(tags.tags[2]) end)
                              , awful.key({ modkey }, "3", function () view_tag(tags.tags[3]) end)
@@ -53,6 +55,13 @@ keys = awful.util.table.join(keys
                              , awful.key({ modkey }, "t",
                                          function()
                                             awful.util.spawn('gnome-terminal') 
+                                         end)
+                             , awful.key({ modkey, "Shift" }, "v", function ()
+                                            awful.util.spawn('virtualbox')
+                                         end)
+                             , awful.key({ modkey }, "Return",
+                                         function()
+                                            awful.util.spawn_with_shell('nautilus --no-desktop') 
                                          end)
                              , awful.key({ modkey, "Shift" }, "q", awesome.quit)
                              , awful.key({ modkey }, "Tab",
@@ -140,7 +149,6 @@ wibox.widgets = {
    layout = awful.widget.layout.horizontal.rightleft,
 }
 
-awful.util.spawn_with_shell('gnome-settings-daemon')
 awful.util.spawn_with_shell('dex -a')
 awful.util.spawn_with_shell('emacs')
 awful.util.spawn_with_shell('firefox')
