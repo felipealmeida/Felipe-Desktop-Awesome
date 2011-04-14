@@ -1,7 +1,8 @@
 
 module(..., package.seeall)
 
-local logfile = io.open("/home/felipe/.config/awesome.log", "w+")
+local home = os.getenv('HOME')
+local logfile = io.open(home .. "/.config/awesome.log", "w+")
 
 function log (msg)
    logfile:write(msg .. "\n")
