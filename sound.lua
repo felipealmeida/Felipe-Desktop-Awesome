@@ -6,6 +6,9 @@ require("debugterminal")
 
 module(..., package.seeall)
 
+music_textbox = widget({ type = 'textbox' })
+music_textbox.text = 'Start some music already!'
+
 rhythmbox_clients = {}
 
 client.add_signal('manage', function (c, startup)
@@ -18,6 +21,10 @@ client.add_signal('manage', function (c, startup)
 
 client.add_signal('unmanage', function (c)
     if c.class == 'Rhythmbox' then
-       client_algos.remove(rhythmbox_clients, c)
+       client_algos.remove_client(rhythmbox_clients, c)
     end
  end)
+
+function refresh_music ()
+   music_textbox.text = awful.util.pread('rhythmbox-client --print-playing')
+end

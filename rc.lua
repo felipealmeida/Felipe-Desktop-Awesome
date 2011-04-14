@@ -155,6 +155,7 @@ wibox.widgets = {
    },
    awful.widget.textclock({ align = "right" }),
    widget({ type = 'systray' }),
+   sound.music_textbox,
    layout = awful.widget.layout.horizontal.rightleft,
 }
 
