@@ -9,10 +9,6 @@ module(..., package.seeall)
 
 emacs_frames = {}
 
-for key, value in pairs(tags.tags) do
-   print ('[' .. key  .. '] ')
-end
-
 client.add_signal('manage', function (c, startup)
     if(c.class == 'Emacs') then
        print ('Emacs manage handling')
