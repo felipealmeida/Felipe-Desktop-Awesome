@@ -103,7 +103,6 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
---    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "r",      function (c) client.focus = c; c:raise()      end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
@@ -112,6 +111,16 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
         end)
+    awful.key({ modkey, "Control" }, "w",      function (c) awful.client.movetotag(tags.tags['web']) end),
+    awful.key({ modkey, "Control" }, "d",      function (c) awful.client.movetotag(tags.tags['dev']) end),
+    awful.key({ modkey, "Control" }, "i",      function (c) awful.client.movetotag(tags.tags['im']) end),
+    awful.key({ modkey, "Control" }, "s",      function (c) awful.client.movetotag(tags.tags['sound']) end),
+    awful.key({ modkey, "Control" }, "v",      function (c) awful.client.movetotag(tags.tags['virtualbox']) end),
+    awful.key({ modkey, "Control" }, "1",      function (c) awful.client.movetotag(tags.tags[1]) end),
+    awful.key({ modkey, "Control" }, "2",      function (c) awful.client.movetotag(tags.tags[2]) end),
+    awful.key({ modkey, "Control" }, "3",      function (c) awful.client.movetotag(tags.tags[3]) end),
+    awful.key({ modkey, "Control" }, "4",      function (c) awful.client.movetotag(tags.tags[4]) end),
+    awful.key({ modkey, "Control" }, "5",      function (c) awful.client.movetotag(tags.tags[5]) end),
 )
 
 clientbuttons = awful.button({ modkey }, 1, awful.mouse.client.move)
