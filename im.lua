@@ -21,13 +21,6 @@ local function is_skype_buddy_list (client)
 end
 
 client.add_signal('manage', function (c, startup)
-       print ('window class ' .. c.class)
-       print ('window name ' .. c.name)
-       print ('window type ' .. c.type)
-       if c.role then
-          print ('window role ' .. c.role)
-       end
-       print ('window instance ' .. c.instance)
     if c.class == 'Pidgin' then                               
        if c.role == 'conversation' then
           table.insert(pidgin_conversations, c)
