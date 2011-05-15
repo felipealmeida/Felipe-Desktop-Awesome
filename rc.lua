@@ -21,6 +21,8 @@ require("title")
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.border_normal = 'red'
 
+terminal = 'roxterm'
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -54,7 +56,7 @@ keys = awful.util.table.join(keys
                              , awful.key({ modkey }, "5", function () view_tag(tags.tags[5]) end)
                              , awful.key({ modkey }, "t",
                                          function()
-                                            awful.util.spawn('gnome-terminal') 
+                                            awful.util.spawn(terminal) 
                                          end)
                              , awful.key({ modkey, "Shift" }, "v", function ()
                                             awful.util.spawn('virtualbox')
@@ -159,7 +161,6 @@ wibox.widgets = {
    layout = awful.widget.layout.horizontal.rightleft,
 }
 
-awful.util.spawn_with_shell('dex -a')
 awful.util.spawn_with_shell('emacs')
 awful.util.spawn_with_shell('firefox')
 awful.util.spawn_with_shell('pidgin')
