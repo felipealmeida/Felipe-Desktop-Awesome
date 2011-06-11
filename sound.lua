@@ -25,6 +25,6 @@ client.add_signal('unmanage', function (c)
     end
  end)
 
-function refresh_music ()
-   music_textbox.text = awful.util.pread('rhythmbox-client --print-playing')
+function refresh_music (artist, album, song)
+   music_textbox.text = artist .. ' - ' .. album .. ' - ' .. song
 end
